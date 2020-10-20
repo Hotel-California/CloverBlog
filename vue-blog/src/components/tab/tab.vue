@@ -15,14 +15,19 @@
     <!-- </transition-group> -->
     </div>
     <div class="uploadsvg">
-      <span title="在线编辑">
+      <!-- <span title="在线编辑">
         <svg class="icon" aria-hidden="true" @click="edit">
           <use xlink:href="#icon-shuxie"></use>
         </svg>
-      </span>
+      </span> -->
       <span title="本地上传" @click="upbtn">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-shangchuan1-copy"></use>
+        </svg>
+      </span>
+      <span title="切换显示" @click="listbtn" :style="{transform: `rotate(${angle*45}deg)`}">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-siyecaox"></use>
         </svg>
       </span>
     </div>
@@ -46,7 +51,8 @@ export default {
     return {
       titles: [],
       color: [],
-      up: false
+      up: false,
+      angle: 1
     }
   },
   watch: {
@@ -70,7 +76,8 @@ export default {
       'blogs',
       'category',
       'isLogin',
-      'user'
+      'user',
+      'blogBox'
     ])
   },
   methods: {
@@ -88,6 +95,10 @@ export default {
         alert('请先登录')
       }
     },
+    listbtn () {
+      this.angle += 1
+      this.setList(!this.blogBox)
+    },
     cls (t) {
       return t === this.category ? 'titlesbox on' : 'titlesbox'
     },
@@ -101,7 +112,8 @@ export default {
       alert('暂时没打算开放在线编辑功能,觉得typora本地编写上传体验更好(附带上传md里引用的图片)。想开放在线编辑功能的同学可以去github留言')
     },
     ...mapMutations({
-      setCategory: 'SET_CATEGORY'
+      setCategory: 'SET_CATEGORY',
+      setList: 'SET_BLOGBOX'
     })
   },
   created () {},
@@ -200,12 +212,28 @@ export default {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    svg {
+    span {
       cursor: pointer;
-      &:last-child {
+      transition: all .4s;
+      &:first-child {
         font-size: 36px;
       }
+      &:last-child {
+        svg {
+          font-size: 48px;
+        }
+      }
     }
+    .rota0 {
+      transform: rotate(0);
+    }
+    .rota45 {
+      transform: rotate(45deg);
+    }
+    .rota90 {
+      transform: rotate(90deg);
+    }
+
     @media screen and (max-width:1200px){
       display: none;
     }

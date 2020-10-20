@@ -3,7 +3,8 @@ const state = {
   login: false,
   blogs: [],
   category: '',
-  tagsOn: []
+  tagsOn: [],
+  blogBox: true
 }
 
 export default state

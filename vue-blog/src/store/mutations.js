@@ -15,6 +15,9 @@ const mutations = {
   },
   [types.SET_TAGS] (state, tagsOn) {
     state.tagsOn = tagsOn
+  },
+  [types.SET_BLOGBOX] (state, blogBox) {
+    state.blogBox = blogBox
   }
 }
 

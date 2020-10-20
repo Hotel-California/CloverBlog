@@ -123,7 +123,7 @@ public class UserServiceImp implements UserService {
     public int changeUserName(String id, String userName) {
         String idDB = userDao.findByUserName(userName);
         if (idDB!=null){
-            throw new RuntimeException("用户名已存在");
+            return 0;
         } else {
             return userDao.updateUserName(id, userName);
         }

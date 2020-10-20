@@ -35,13 +35,14 @@ export default new Router({
       path: '/',
       redirect: to => {
         if (loadAuto() && loadToken()) {
-          return '/' + JSON.parse(window.atob(loadToken().split('.')[1])).id
+          return '/' + JSON.parse(decodeURIComponent(escape(window.atob(loadToken().split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))))).id
         }
         return '/0'
       }
     },
     {
       path: '/:id',
+      name: 'page',
       component: BlogPage,
       children: [
         {

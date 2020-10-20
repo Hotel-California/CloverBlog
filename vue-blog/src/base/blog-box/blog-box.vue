@@ -1,40 +1,50 @@
 <template>
-  <router-link tag="div" class="blog-box" :to="{name: 'blog', params: {id: blog.userId, blogid: blog.blogId }}" v-if="blog.visible" v-show="(category===''||blog.category===category)&&(isOfTags(blog.tags))">
-    <div class="pic" :style="{backgroundImage : user.api ? `url(${user.api}/?t=${blog.blogId})` : `url(https://random.52ecy.cn/randbg.php/?t=${blog.blogId})`}"></div>
-    <div class="mask"></div>
-    <div class="title">{{blog.title}}</div>
-    <div class="foot">
-      <div class="description">{{blog.preview}}</div>
-      <div class="line"></div>
-      <div class="sum">
-        <div class="time">
-          <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-shijian"></use>
-          </svg>
-          {{blog.uploadTime}}
-        </div>
-        <div class="count">
-          <div>
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-liulan2"></use>
-            </svg>
-            {{blog.views}}
-          </div>
-          <div>
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-pinglun2"></use>
-            </svg>
-            {{blog.comments}}
-          </div>
-          <div>
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-dianzan1"></use>
-            </svg>
-            {{blog.likes}}
+  <router-link tag="div" class="outer" :to="{name: 'blog', params: {id: blog.userId, blogid: blog.blogId }}" v-if="blog.visible" v-show="(category===''||blog.category===category)&&(isOfTags(blog.tags))">
+    <transition name="fade-in">
+      <div class="blog-box" v-if="blogBox" key="0">
+        <div class="pic" :style="{backgroundImage : user.api ? `url(${user.api}/?t=${blog.blogId})` : `url(https://random.52ecy.cn/randbg.php/?t=${blog.blogId})`}"></div>
+        <div class="mask"></div>
+        <div class="title">{{blog.title}}</div>
+        <div class="foot">
+          <div class="description">{{blog.preview}}</div>
+          <div class="line"></div>
+          <div class="sum">
+            <div class="time">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-shijian"></use>
+              </svg>
+              {{blog.uploadTime}}
+            </div>
+            <div class="count">
+              <div>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-liulan2"></use>
+                </svg>
+                {{blog.views}}
+              </div>
+              <div>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-pinglun2"></use>
+                </svg>
+                {{blog.comments}}
+              </div>
+              <div>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-dianzan1"></use>
+                </svg>
+                {{blog.likes}}
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <div v-else class="list" key="1">
+        <div style="width:40px;margin-left:5px;">{{index+1}}</div>
+        <div class="list-title">{{blog.title}}</div>
+        <div class="list-desc">{{blog.preview}}</div>
+        <div class="list-uptm">{{blog.uploadTime.substring(0,blog.uploadTime.length-3)}}</div>
+      </div>
+    </transition>
   </router-link>
 </template>
 
@@ -50,6 +60,12 @@ export default {
       default () {
         return {}
       }
+    },
+    index: {
+      type: Number,
+      default () {
+        return 0
+      }
     }
   },
   data () {
@@ -60,7 +76,8 @@ export default {
     ...mapGetters([
       'user',
       'category',
-      'tagsOn'
+      'tagsOn',
+      'blogBox'
     ])
   },
   methods: {
@@ -78,6 +95,11 @@ export default {
 }
 </script>
 <style  lang="scss" scoped>
+.outer {
+  min-height: 60px;
+  position: relative;
+  margin-bottom: 10px;
+}
 .blog-box{
   box-shadow: 1px 1px 3px 1px rgba(0,0,0,.2);
   border-top-left-radius: 10px;
@@ -87,11 +109,8 @@ export default {
   width: 100%;
   padding-top: 40%;
   // height: 200px;
+  margin-bottom: 3%;
   overflow: hidden;
-  margin-bottom: 3.2%;
-  &:last-child {
-    margin-bottom: 0;
-  }
   .pic {
     top: 0;
     position: absolute;
@@ -115,7 +134,8 @@ export default {
   .title {
     width: 80%;
     line-height: 50px;
-    font-size: 4vw;
+    font-size: 3.6vw;
+    line-height: 4vw;
     position: absolute;
     transition: all 0.2s ease;
     top: 40%;
@@ -217,5 +237,44 @@ export default {
     height:54%;
     opacity: 1;
   }
+}
+.list {
+  position: absolute;
+  top: 0;
+  background-color: var(--color);
+  width: 100%;
+  height: 60px;
+  font-size: 1.7rem;
+  display: flex;
+  align-items: center;
+  border-radius: 9px;
+  opacity: 0.95;
+  &:hover {
+    background-color: rgb(231, 231, 231);
+  }
+  .list-title {
+    width: 36%;
+    text-align: left;
+  }
+  .list-desc {
+    text-align: left;
+    flex: 1;
+    font-size: 16px;
+  }
+  .list-uptm {
+    margin-right: 10px;
+    font-size: 20px;
+  }
+}
+.fade-in-enter-active {
+  transition: all 1.2s ease;
+}
+.fade-in-leave-active {
+  transition: all 1.2s ease-out;
+}
+.fade-in-enter, .fade-in-leave-to {
+  padding-top: 0;
+  opacity: 0;
+  margin-bottom: 0;
 }
 </style>

@@ -9,7 +9,6 @@
         </div>
         <bottom></bottom>
       </vue-scroll>
-
     </div>
   </div>
 </template>
@@ -21,7 +20,7 @@ import center from 'cpnts/center/center'
 import {mapGetters, mapMutations} from 'vuex'
 import {getUserInfo, autoLogin} from 'api/user'
 import {getBlogList} from 'api/blog'
-import {loadToken} from 'common/js/cache'
+import {loadToken, reset} from 'common/js/cache'
 import Bottom from 'cpnts/bottom/bottom'
 export default {
   components: {
@@ -92,11 +91,15 @@ export default {
     if (i + '' === id) {
       this.setUserInfo(id)
       if (loadToken()) {
-        if (JSON.parse(window.atob(loadToken().split('.')[1])).id === id) {
-          autoLogin().then((res) => {
-            // this.setUser(res.data.data)
-            this.setLogin(true)
-          })
+        try {
+          if (JSON.parse(decodeURIComponent(escape(window.atob(loadToken().split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))))).id === id) {
+            autoLogin().then((res) => {
+              // this.setUser(res.data.data)
+              this.setLogin(true)
+            })
+          }
+        } catch (e) {
+          reset()
         }
       }
     } else {

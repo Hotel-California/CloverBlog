@@ -48,7 +48,7 @@
             <input class="title" placeholder="博客标题" v-model="blog.title"/>
             <input class="title" list="category" placeholder="博客分类" v-model="blog.category"/>
             <datalist id="category">
-              <option v-for="b in blogs" :key="b.blogId" :value="b.category"></option>
+              <option v-for="(b,i) in category" :key="i" :value="b"></option>
             </datalist>
             <div class="bt">
               所有人可见
@@ -87,6 +87,15 @@ export default {
   },
   watch: {},
   computed: {
+    category () {
+      let array = []
+      for (let i = 0; i < this.blogs.length; i++) {
+        if (array.indexOf(this.blogs[i].category) === -1) {
+          array.push(this.blogs[i].category)
+        }
+      }
+      return array
+    },
     ...mapGetters([
       'user',
       'blogs'
@@ -302,6 +311,7 @@ export default {
             height: 33.3%;
             margin: 1px;
             background-size: cover;
+            background-position: center center;
             position: relative;
             .x {
               position: absolute;

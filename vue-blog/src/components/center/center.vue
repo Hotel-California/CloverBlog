@@ -48,6 +48,7 @@ export default {
   height: 100%;
   width: 90%;
   margin: calc(var(--margin) * 1px) auto;
+  padding-bottom: 160px;
   @media screen and (max-width:1200px){
     width: 96%;
   }

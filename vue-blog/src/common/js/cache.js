@@ -31,3 +31,7 @@ export function loadAuto () {
   if (!storage.has(AUTOLOGIN)) return false
   return storage.get(AUTOLOGIN, Boolean)
 }
+export function reset () {
+  storage.remove(AUTOLOGIN)
+  storage.remove(TOKEN)
+}

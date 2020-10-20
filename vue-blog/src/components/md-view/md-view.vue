@@ -29,7 +29,7 @@
             <use use xlink:href="#icon-dianzan2"></use>
           </svg>{{blog.likes}}
       </div>
-      <div class="tags">
+      <div class="tags" ref="t">
         <div class="tag" v-for="(t,i) in blog.tags" :key="i">{{t}}</div>
       </div>
       <div class="desc">{{blog.preview}}</div>
@@ -122,14 +122,13 @@ export default {
   background-color: var(--color);
   overflow: hidden;
   border-radius: 8px;
-  margin-bottom: 160px;
   .title {
     overflow: hidden;
     text-align: center;
     padding: 15px;
     padding-bottom: 15px;
     .text {
-      font-size: 2.4rem;
+      font-size: 2.8rem;
       font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
       font-weight: 600;
     }
@@ -153,10 +152,19 @@ export default {
       position: relative;
       svg {
         margin-left: 0;
+        margin-right: 8px;
+        @media screen and (max-width:1200px){
+          margin-right: 0;
+        }
       }
     }
     svg {
-      margin-left: 10px;
+      margin-left: 40px;
+      margin-right: 5px;
+      @media screen and (max-width:1200px){
+        margin-left: 10px;
+        margin-right: 0;
+      }
       font-size: 25px;
     }
   }
@@ -261,6 +269,9 @@ export default {
   width: 225px !important;
   opacity: 0;
   transition: all 0.5s;
+  img {
+    display: none !important;
+  }
   &:hover {
     opacity: var(--opacity);
   }
@@ -274,5 +285,9 @@ export default {
 }
 .markdown-body .highlight pre, .markdown-body pre {
   padding: 12px !important;
+}
+.markdown-body img {
+    margin: 0 auto;
+    display: block;
 }
 </style>

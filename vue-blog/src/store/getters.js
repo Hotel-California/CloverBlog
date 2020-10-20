@@ -9,3 +9,5 @@ export const blogs = state => state.blogs
 export const category = state => state.category
 
 export const tagsOn = state => state.tagsOn
+
+export const blogBox = state => state.blogBox

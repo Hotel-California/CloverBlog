@@ -113,7 +113,7 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss" scoped>
 .sliderwrap {
   padding: 10px 5px 10px 5px;
   position: absolute;

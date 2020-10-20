@@ -1,6 +1,6 @@
 <template>
   <div class="main-content">
-    <blog-box v-for="blog in blogs" :key="blog.blogId" :blog=blog></blog-box>
+    <blog-box v-for="(blog, index) in blogs" :key="blog.blogId" :blog=blog :index=index class="oneblog"></blog-box>
   </div>
 </template>
 
@@ -29,6 +29,5 @@ export default {
 <style lang="scss" scoped>
 .main-content{
   text-align: center;
-  margin-bottom: 160px;
 }
 </style>

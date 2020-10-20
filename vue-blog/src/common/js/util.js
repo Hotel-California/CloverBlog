@@ -21,7 +21,7 @@ export function sortList (n) {
 }
 
 // 彩虹色
-export function rainbowColor (len, min, max) {
+export function rainbowColor (len, min, max, t = 0.8) {
   if (min < 0 || max > 255) return
   if (len === 1) return ['#40aad6']
   let arr = sortList(len)
@@ -33,7 +33,7 @@ export function rainbowColor (len, min, max) {
     for (let j = 0; j < shu.length; j++) {
       bgc[j] += color[shu[j]] + ','
       if (i === 2) {
-        bgc[j] += '0.8)'
+        bgc[j] += t + ')'
       }
     }
   }

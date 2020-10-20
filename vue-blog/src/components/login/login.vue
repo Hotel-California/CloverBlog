@@ -14,7 +14,7 @@
         </div>
         <div>
           <form action="">
-            <input placeholder="密码" :type="passwordtype"  class="textbox" v-model="user.password" autocomplete="off">
+            <input placeholder="密码" :type="passwordtype"  class="textbox" v-model="user.password" autocomplete="off" @keydown.enter.prevent.stop="login">
           </form>
           <svg class="icon" v-show="passwordtype=='password'" aria-hidden="true" @click="passwordtype=(passwordtype=='password')?'text':'password'">
             <use xlink:href="#icon-kejian"></use>
@@ -39,7 +39,7 @@
         </div>
         <div>
           <form action="">
-            <input placeholder="密码 (6-20个字符)" :type="texttype"  class="textbox" v-model="user.password" autocomplete="off">
+            <input placeholder="密码 (6-20个字符)" :type="texttype"  class="textbox" v-model="user.password" autocomplete="off" @keydown.enter.prevent.stop="register">
           </form>
           <svg class="icon" v-show="texttype=='password'" aria-hidden="true" @click="texttype=(texttype=='password')?'text':'password'">
             <use xlink:href="#icon-kejian"></use>
@@ -49,7 +49,7 @@
           </svg>
         </div>
         <div class="log">
-          <input type="text" v-model="code">
+          <input type="text" v-model="code" @keydown.enter.prevent.stop="register">
           <img :src="src" style="width:80px;height:32px;margin-right:20px" alt="验证码" @click="getImage" :key="key">
           <span style="width:auto" @click="register">
             注册
@@ -175,7 +175,6 @@ export default {
 </script>
 <style  lang="scss" scoped>
 .login{
-  user-select: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -196,7 +195,6 @@ export default {
     min-width: 300px;
     box-shadow:0 0 30px 5px rgba(0, 0, 0, 0.36);
     .tab {
-      user-select: none;
       border-bottom: 1px solid black;
       display: flex;
       align-items: center;
@@ -250,7 +248,7 @@ export default {
         }
         span {
           float: right;
-          width: 50%;
+          width: 45%;
           text-align: center;
           border-radius: 10px;
           color: white;
@@ -271,7 +269,7 @@ export default {
           height: 30px;
           font-size: 20px;
           margin: 0;
-          margin-right: 10px;
+          margin-right: 20px;
         }
         span {
           flex: 1;

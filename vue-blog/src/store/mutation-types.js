@@ -7,3 +7,5 @@ export const SET_BLOGS = 'SET_BLOGS'
 export const SET_CATEGORY = 'SET_CATEGORY'
 
 export const SET_TAGS = 'SET_TAGS'
+
+export const SET_BLOGBOX = 'SET_BLOGBOX'

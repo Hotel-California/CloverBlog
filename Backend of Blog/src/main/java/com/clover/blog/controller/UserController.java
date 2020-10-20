@@ -237,10 +237,13 @@ public class UserController {
         try {
             if(userService.saveContact(id, js) == 0)
                 return Result.fail("保存联系方式失败");
-            if(userService.changeUserName(id, name) == 0)
-                return Result.fail("保存昵称失败");
-            User userDB = userService.findUserById(id);
-            return Result.success("保存基本信息成功", userDB);
+            User userDB = null;
+            if(userService.changeUserName(id, name) == 0){
+                userDB = userService.findUserById(id);
+                return Result.success("未修改昵称，保存联系方式成功", userDB);
+            }
+            userDB = userService.findUserById(id);
+            return Result.success("修改昵称，保存基本信息成功", userDB);
         } catch (Exception e) {
             return Result.fail(e.getMessage());
         }
